@@ -15,9 +15,10 @@ function find(){
 }
 
 function findById(id){
-    return db("recipes")
+    return db.select ('*')
+    .from("recipes")
     .where({id})
-    .first()
+   
 }
 
 function findSteps(id){

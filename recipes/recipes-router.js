@@ -14,10 +14,10 @@ router.get('/', (req,res)=>{
 })
 
 router.get('/:id', (req,res)=>{
-    const {id } = req.params.id;
-    Recipes.findById(id)
+    // const {id } = req.params.id;
+    Recipes.findById(req.params.id)
     .then(recipe=>{
-        res.status(200).json(recipe)
+        res.status(200).json({data:recipe})
     })
     .catch(err=>{
         res.status(500).json({message: error.message})
@@ -50,25 +50,25 @@ router.post('/', (req,res)=>{
     })
 })
 
-recipe.post('/:id/instructions', (req,res)=>{
-    const newStep = req.body;
-    const { id } = req.params.id
+// recipe.post('/:id/instructions', (req,res)=>{
+//     const newStep = req.body;
+//     const { id } = req.params.id
 
-    Recipes.findById(id)
-    .then(recipe=>{
-        if(recipe){
-            Recipes.addStep(newStep, id)
-            .then(step=>{
-                res.status(201).json(step)
-            })
-        }else{
-            res.status(404).json({message: "recipe not found"})
-        }
-    })
-    .catch(err=>{
-        res.status(500).json({message: error.message})
-    })
-})
+//     Recipes.findById(id)
+//     .then(recipe=>{
+//         if(recipe){
+//             Recipes.addStep(newStep, id)
+//             .then(step=>{
+//                 res.status(201).json(step)
+//             })
+//         }else{
+//             res.status(404).json({message: "recipe not found"})
+//         }
+//     })
+//     .catch(err=>{
+//         res.status(500).json({message: error.message})
+//     })
+// })
 
 router.put('/:id', (req,res)=>{
     const { id } = req.params.id
