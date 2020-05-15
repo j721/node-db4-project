@@ -33,3 +33,31 @@ function findSteps(id){
     .orderBy("s.step_number")
 }
 
+function add(recipe){
+    return db("recipes")
+    .insert(recipe)
+    .then(ids=>{
+        return findById(ids[0])
+    })
+}
+
+function addStep(step, id){
+    const newStep = {...step, recipe_id: id}
+    return db("steps")
+    .insert(addedStep)
+    .then(()=>{
+        return findSteps(id)
+    })
+}
+
+function update (changes, id){
+    return db("recipes")
+    .where({id})
+    .update(changes)
+}
+
+function remove(id){
+    return db ("recipes")
+    .where({id})
+    .del()
+}
