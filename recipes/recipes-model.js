@@ -10,8 +10,14 @@ module.exports ={
     remove
 }
 
+// function find(){
+//     return db ("recipes")
+// }
+
+
 function find(){
-    return db ("recipes")
+    return db.select ("*")
+    .from("recipes")
 }
 
 function findById(id){
@@ -22,16 +28,16 @@ function findById(id){
 }
 
 function findSteps(id){
-    return db ("steps as s")
-    .join ("recipe as r", "r.id", "s.recipe_id")
+    return db ("steps")
+    .join ("recipes", "recipes.id", "steps.recipe_id")
     .select(
-        "r.name",
-        "s.id as step_id",
-        "s.step_number",
-        "s.instructions"
+        "recipes.recipe",
+        "steps.id",
+        "steps.step_number",
+        "steps.instructions"
     )
-    .where({id})
-    .orderBy("s.step_number")
+    .where({"steps.recipe_id": id})
+    .orderBy("steps.step_number")
 }
 
 function add(recipe){
@@ -62,3 +68,4 @@ function remove(id){
     .where({id})
     .del()
 }
+

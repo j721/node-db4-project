@@ -20,13 +20,13 @@ router.get('/:id', (req,res)=>{
         res.status(200).json({data:recipe})
     })
     .catch(err=>{
-        res.status(500).json({message: error.message})
+        res.status(500).json({message: "sorry an error", err})
     })
 })
 
 router.get('/:id/instructions', (req,res)=>{
-    const { id } = req.params.id;
-    Recipes.findSteps(id)
+    // const { id } = req.params.id;
+    Recipes.findSteps(req.params.id)
     .then(steps=>{
         if (steps.length){
             res.status(200).json(steps)
@@ -35,7 +35,8 @@ router.get('/:id/instructions', (req,res)=>{
         }
     })
     .catch(err=>{
-        res.status(500).json({message: error.message})
+        console.log(err)
+        res.status(500).json({message: err.message})
     })
 })
 
@@ -46,7 +47,7 @@ router.post('/', (req,res)=>{
         res.status(201).json(recipe)
     })
     .catch(err=>{
-        res.status(500).json({message: error.message})
+        res.status(500).json({message: err.message})
     })
 })
 
